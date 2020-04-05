@@ -13,6 +13,7 @@ type (
 		ProductID 			string 			`db:"product_id" json:"product_id"`
 		Link				string 			`db:"link" json:"link"`
 		DetailLatest 		Detail 			`json:"detail_latest,omitempty"`
+		DetailHistory 		[]Detail 			`json:"detail_history,omitempty"`
 		CreatedAt			string 			`db:"created_at" json:"created_at"`
 		UpdatedAt			string 			`db:"updated_at" json:"updated_at"`
 		DeletedAt			string  		`db:"deleted_at" json:"deleted_at"`

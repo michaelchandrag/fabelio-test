@@ -5,6 +5,7 @@ import (
 
 	first "github.com/michaelchandrag/fabelio-test/module/controller/first"
 	second "github.com/michaelchandrag/fabelio-test/module/controller/second"
+	history "github.com/michaelchandrag/fabelio-test/module/controller/history"
 )
 
 func SetupRouter() *gin.Engine {
@@ -19,6 +20,7 @@ func SetupRouter() *gin.Engine {
 
 	r.GET("/", first.RenderFirstPage)
 	r.GET("/page2", second.RenderSecondPage)
+	r.GET("/history/:productId", history.RenderHistoryPage)
 
 	return r
 }

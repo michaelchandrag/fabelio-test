@@ -21,41 +21,30 @@ type (
 	}
 )
 
-func (this *Detail) FindByProductID(productId string) ([]*Detail, error) {
+func (this *Detail) FindByProductID(productId string) (results []Detail, err error) {
 	query := `
 		SELECT
-			id,
-			product_id,
-			title,
-			description,
-			price,
-			images,
-			created_at,
-			updated_at,
-			COALESCE(deleted_at,"") as deleted_at
+			d.id,
+			d.product_id,
+			d.title,
+			d.description,
+			d.price,
+			d.images,
+			d.created_at,
+			d.updated_at,
+			COALESCE(d.deleted_at,"") as deleted_at
 		FROM
-			detail
+			detail as d
 		WHERE
-			product_id = ?`
-	rows, err := db.Engine.Queryx(query, productId)
-
+			product_id = ?
+		ORDER BY
+			d.created_at ASC
+		`
+	err = db.Engine.Select(&results, query, productId)
 	if err != nil {
 		return nil, err
 	}
-
-	defer rows.Close()
-
-	var details []*Detail
-	for rows.Next() {
-		_n := &Detail{}
-		err = rows.StructScan(_n)
-		if err != nil {
-			return nil, err
-		}
-		details = append(details, _n)
-	}
-
-	return details, nil
+	return results, nil
 }
 
 
