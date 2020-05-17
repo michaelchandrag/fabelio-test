@@ -1,10 +1,11 @@
 package router
 
 import (
+	"os"
 	"path/filepath"
     "runtime"
-    "fmt"
 	"github.com/gin-gonic/gin"
+	"fmt"
 
 	first "github.com/michaelchandrag/fabelio-test/module/controller/first"
 	second "github.com/michaelchandrag/fabelio-test/module/controller/second"
@@ -17,13 +18,19 @@ var (
 )
 
 func SetupRouter() *gin.Engine {
+	app := os.Getenv("APP")
 	r := gin.Default()
-	fmt.Println(basepath)
-	r.LoadHTMLGlob(basepath + "/../../public/views/*")
-	r.Static("/css", basepath + "/../../public/assets/css")
-	r.Static("/fonts", basepath + "public/assets/fonts")
-	r.Static("/img", basepath + "public/assets/img")
-	r.Static("/js", basepath + "public/assets/js")
+	pre := ""
+	if app == "dev" {
+		pre = basepath + "/../../"
+	}
+	fmt.Println(app)
+	fmt.Println(pre)
+	r.LoadHTMLGlob(pre + "public/views/*")
+	r.Static("/css", pre + "public/assets/css")
+	r.Static("/fonts", pre + "public/assets/fonts")
+	r.Static("/img", pre + "public/assets/img")
+	r.Static("/js", pre + "public/assets/js")
 
 	r.POST("/fetch_data_from_fabelio", first.FetchDataFromFabelio)
 
