@@ -102,10 +102,12 @@
           })
         },
         success: function(response) {
+          console.log(response)
           Swal.fire({
             title: 'Done!',
             text: response.message
           })
+          window.location.href = "history/" + response.detail.product_id
         }
       });
     }
