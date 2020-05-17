@@ -11,3 +11,9 @@ cd {project_directory}
 source .env
 go run build/main.go
 ```
+
+## TESTING
+```
+cd build
+go test
+```
