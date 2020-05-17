@@ -1,6 +1,7 @@
 package router
 
 import (
+	"os"
 	"github.com/gin-gonic/gin"
 
 	first "github.com/michaelchandrag/fabelio-test/module/controller/first"
@@ -10,7 +11,8 @@ import (
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
-	r.LoadHTMLGlob("public/views/*")
+	rd, _ := os.Getwd()
+	r.LoadHTMLGlob(rd + "/../public/views/*")
 	r.Static("/css", "public/assets/css")
 	r.Static("/fonts", "public/assets/fonts")
 	r.Static("/img", "public/assets/img")
